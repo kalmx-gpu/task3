@@ -1,14 +1,27 @@
 <?php
+// validators.php
 
 /**
- * Проверяет ФИО
+ * Вспомогательная функция для подсчёта длины строки в символах UTF-8
+ * Использует iconv, если доступно, иначе – регулярное выражение.
+ */
+function utf8_strlen($string) {
+    if (function_exists('iconv_strlen')) {
+        return iconv_strlen($string, 'UTF-8');
+    }
+    // Запасной вариант через регулярное выражение
+    return preg_match_all('/./u', $string, $matches);
+}
+
+/**
+ * Проверяет ФИО: только буквы, пробелы, дефис, не более 150 символов
  */
 function validateFullName($value) {
     $value = trim($value);
     if ($value === '') {
         return 'Поле ФИО обязательно для заполнения.';
     }
-    if (mb_strlen($value) > 150) {
+    if (utf8_strlen($value) > 150) {
         return 'ФИО не должно превышать 150 символов.';
     }
     if (!preg_match('/^[a-zA-Zа-яА-ЯёЁ\s\-]+$/u', $value)) {
@@ -18,7 +31,7 @@ function validateFullName($value) {
 }
 
 /**
- * Проверяет допустим формат
+ * Проверяет телефон: допустим формат +7XXXXXXXXXX или 8XXXXXXXXXX (11 цифр)
  */
 function validatePhone($value) {
     $value = trim($value);
@@ -90,6 +103,7 @@ function validateLanguages($values) {
     if (!is_array($values) || count($values) == 0) {
         return 'Выберите хотя бы один язык программирования.';
     }
+    // Список допустимых языков (должен совпадать со справочником в БД)
     $allowed = [
         'Pascal', 'C', 'C++', 'JavaScript', 'PHP',
         'Python', 'Java', 'Haskell', 'Clojure', 'Prolog',
@@ -111,7 +125,7 @@ function validateBio($value) {
     if ($value === '') {
         return 'Поле Биография обязательно.';
     }
-    if (mb_strlen($value) > 5000) {
+    if (utf8_strlen($value) > 5000) {
         return 'Биография слишком длинная (максимум 5000 символов).';
     }
     return null;
