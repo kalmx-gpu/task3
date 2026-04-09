@@ -1,10 +1,6 @@
 <?php
-// validators.php
 
-/**
- * Вспомогательная функция для подсчёта длины строки в символах UTF-8
- * Использует iconv, если доступно, иначе – регулярное выражение.
- */
+
 function utf8_strlen($string) {
     if (function_exists('iconv_strlen')) {
         return iconv_strlen($string, 'UTF-8');
@@ -14,7 +10,7 @@ function utf8_strlen($string) {
 }
 
 /**
- * Проверяет ФИО: только буквы, пробелы, дефис, не более 150 символов
+ * Проверяет ФИО
  */
 function validateFullName($value) {
     $value = trim($value);
@@ -31,14 +27,13 @@ function validateFullName($value) {
 }
 
 /**
- * Проверяет телефон: допустим формат +7XXXXXXXXXX или 8XXXXXXXXXX (11 цифр)
+ * Проверяет телефон
  */
 function validatePhone($value) {
     $value = trim($value);
     if ($value === '') {
         return 'Поле Телефон обязательно.';
     }
-    // Убираем всё, кроме цифр
     $digits = preg_replace('/\D/', '', $value);
     if (strlen($digits) != 11) {
         return 'Телефон должен содержать 11 цифр (например, +7XXXXXXXXXX).';
@@ -78,8 +73,8 @@ function validateBirthDate($value) {
     if ($date > $now) {
         return 'Дата рождения не может быть в будущем.';
     }
-    // Дополнительно: проверка на адекватный возраст (например, не старше 120 лет)
-    $minDate = (new DateTime())->sub(new DateInterval('P120Y'));
+    // Дополнительно: проверка на адекватный возраст 
+    $minDate = (new DateTime())->sub(new DateInterval('P100Y'));
     if ($date < $minDate) {
         return 'Пожалуйста, укажите реальную дату рождения.';
     }
@@ -103,7 +98,6 @@ function validateLanguages($values) {
     if (!is_array($values) || count($values) == 0) {
         return 'Выберите хотя бы один язык программирования.';
     }
-    // Список допустимых языков (должен совпадать со справочником в БД)
     $allowed = [
         'Pascal', 'C', 'C++', 'JavaScript', 'PHP',
         'Python', 'Java', 'Haskell', 'Clojure', 'Prolog',

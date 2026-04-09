@@ -21,7 +21,6 @@
         <?php endif; ?>
         
         <form action="" method="POST">
-            <!-- ФИО -->
             <div class="form-group">
                 <label class="required" for="full_name">ФИО</label>
                 <input type="text" name="full_name" id="full_name" 
@@ -30,7 +29,6 @@
                 <small>Только буквы и пробелы, не более 150 символов</small>
             </div>
 
-            <!-- Телефон -->
             <div class="form-group">
                 <label class="required" for="phone">Телефон</label>
                 <input type="tel" name="phone" id="phone" 
@@ -39,21 +37,18 @@
                 <small>В формате +7XXXXXXXXXX или 8XXXXXXXXXX</small>
             </div>
 
-            <!-- E-mail -->
             <div class="form-group">
                 <label class="required" for="email">E-mail</label>
                 <input type="email" name="email" id="email" 
                        value="<?= htmlspecialchars($values['email'] ?? '') ?>" required>
             </div>
 
-            <!-- Дата рождения -->
             <div class="form-group">
                 <label class="required" for="birth_date">Дата рождения</label>
                 <input type="date" name="birth_date" id="birth_date" 
                        value="<?= htmlspecialchars($values['birth_date'] ?? '') ?>" required>
             </div>
 
-            <!-- Пол -->
             <div class="form-group">
                 <label class="required">Пол</label>
                 <div class="radio-group">
@@ -70,7 +65,6 @@
                 </div>
             </div>
 
-            <!-- Любимые языки программирования -->
             <div class="form-group">
                 <label class="required" for="languages">Любимые языки программирования</label>
                 <select name="languages[]" id="languages" multiple required>
@@ -91,7 +85,6 @@
                 <small>Удерживайте Ctrl (Cmd) для выбора нескольких</small>
             </div>
 
-            <!-- Биография -->
             <div class="form-group">
                 <label class="required" for="bio">Биография</label>
                 <textarea name="bio" id="bio" rows="5" required><?= 
@@ -99,7 +92,6 @@
                 ?></textarea>
             </div>
 
-            <!-- Чекбокс контракта -->
             <div class="form-group checkbox-group">
                 <input type="checkbox" name="contract_agreed" id="contract" value="1" 
                        <?= isset($values['contract_agreed']) ? 'checked' : '' ?> required>

@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
     <?php if ($success): ?>
         <div class="form-container">
-            <h2>Работа выполнена Цареновым Олегом ПИ22/2</h2>
+            <h2>Работу выполнил Царенов Олег ПИ22/2</h2>
             <h2>Данные успешно сохранены!</h2>
             <div class="success-message">Спасибо за заполнение анкеты.</div>
             <a href="/task3/" style="display: block; text-align: center; margin-top: 20px; color: #3498db;">Вернуться к форме</a>

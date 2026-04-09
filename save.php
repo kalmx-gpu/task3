@@ -1,10 +1,9 @@
 <?php
 require_once 'config.php';
 
-/**
- * Сохраняет заявку и выбранные языки в БД.
- * Возвращает ID созданной заявки или выбрасывает исключение при ошибке.
- */
+/
+ //Сохраняет заявку и выбранные языки в БД.
+ 
 function saveApplication($data) {
     // Загружаем конфиг и создаём подключение PDO
     $config = require 'config.php';
@@ -13,7 +12,7 @@ function saveApplication($data) {
     $pdo = new PDO($dsn, $config['username'], $config['password'], [
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-        PDO::ATTR_EMULATE_PREPARES => false // для настоящих подготовленных выражений
+        PDO::ATTR_EMULATE_PREPARES => false 
     ]);
     
     try {
@@ -41,14 +40,13 @@ function saveApplication($data) {
         
         // 2. Получаем ID выбранных языков из справочника
         if (!empty($data['languages'])) {
-            // Создаём строку с плейсхолдерами для IN (?), количество равно числу языков
             $placeholders = implode(',', array_fill(0, count($data['languages']), '?'));
             $stmtLang = $pdo->prepare("
                 SELECT id, name FROM programming_languages 
                 WHERE name IN ($placeholders)
             ");
             $stmtLang->execute($data['languages']);
-            $languages = $stmtLang->fetchAll(); // массив вида [ ['id'=>1, 'name'=>'PHP'], ... ]
+            $languages = $stmtLang->fetchAll(); 
             
             // 3. Вставляем связи в таблицу application_languages
             $stmtLink = $pdo->prepare("
