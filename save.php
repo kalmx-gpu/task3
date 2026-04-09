@@ -1,7 +1,7 @@
 <?php
 require_once 'config.php';
 
-/
+
  //Сохраняет заявку и выбранные языки в БД.
  
 function saveApplication($data) {
