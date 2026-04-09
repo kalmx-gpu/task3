@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Анкета</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/task3/style.css">
 </head>
 <body>
     <div class="form-container">

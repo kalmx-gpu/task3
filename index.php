@@ -1,11 +1,9 @@
 <?php
 header('Content-Type: text/html; charset=UTF-8');
 
-// Подключаем нужные модули
 require_once 'validators.php';
 require_once 'save.php';
 
-// Инициализируем переменные для формы
 $values = [];
 $errors = [];
 $success = false;
@@ -23,17 +21,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         try {
             $id = saveApplication($_POST);
             $success = true;
-            // Очищаем значения, чтобы форма показывалась пустой после успеха
             $values = [];
         } catch (Exception $e) {
-            // Логируем реальную ошибку (можно в файл), а пользователю показываем общее сообщение
             error_log('Ошибка сохранения: ' . $e->getMessage());
             $errors['db'] = 'Произошла ошибка при сохранении данных. Попробуйте позже.';
         }
     }
 }
 
-// Если запрос GET, или после POST нужно показать форму
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -45,9 +40,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
     <?php if ($success): ?>
         <div class="form-container">
+            <h2>Работа выполнена Цареновым Олегом ПИ22/2</h2>
             <h2>Данные успешно сохранены!</h2>
             <div class="success-message">Спасибо за заполнение анкеты.</div>
-            <a href="/" style="display: block; text-align: center; margin-top: 20px; color: #3498db;">Вернуться к форме</a>
+            <a href="/task3/" style="display: block; text-align: center; margin-top: 20px; color: #3498db;">Вернуться к форме</a>
         </div>
     <?php else: ?>
         <?php include 'form.php'; ?>
